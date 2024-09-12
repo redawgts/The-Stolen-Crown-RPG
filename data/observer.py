@@ -2,12 +2,13 @@
 Module for all game observers.
 """
 import pygame as pg
+
 from . import constants as c
 from . import setup
 from .components import attackitems
-from . import setup
 
-class Battle(object):
+
+class Battle:
     """
     Observes events of battle and passes info to components.
     """
@@ -55,7 +56,7 @@ class Battle(object):
         self.level.player.attacked_enemy = None
 
 
-class SoundEffects(object):
+class SoundEffects:
     """
     Observer for sound effects.
     """
@@ -66,7 +67,7 @@ class SoundEffects(object):
         if event in setup.SFX:
             setup.SFX[event].play()
 
-class MusicChange(object):
+class MusicChange:
     """
     Observer for special music events.
     """
@@ -90,22 +91,5 @@ class MusicChange(object):
                 music_file = setup.MUSIC[new_music]
                 pg.mixer.music.load(music_file)
                 pg.mixer.music.play(-1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

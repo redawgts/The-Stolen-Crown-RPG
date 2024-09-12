@@ -1,16 +1,13 @@
 """
 GUI components for battle states.
 """
-import sys
 import pygame as pg
-from . import setup, observer
+
 from . import constants as c
+from . import observer, setup
 
-#Python 2/3 compatibility.
-if sys.version_info[0] == 2:
-    range = xrange
 
-class InfoBox(object):
+class InfoBox:
     """
     Info box that describes attack damage and other battle
     related information.
@@ -188,8 +185,7 @@ class InfoBox(object):
         self.state_dict[c.LEVEL_UP] = self.level_up()
 
 
-
-class SelectBox(object):
+class SelectBox:
     """
     Box to select whether to attack, use item, use magic or run away.
     """
@@ -232,7 +228,7 @@ class SelectBox(object):
         return slot_dict
 
 
-class SelectArrow(object):
+class SelectArrow:
     """Small arrow for menu"""
     def __init__(self, enemy_pos_list, info_box):
         self.info_box = info_box
@@ -270,7 +266,7 @@ class SelectArrow(object):
         """
         self.pos_list = self.make_select_action_pos_list()
         if self.index > (len(self.pos_list) - 1):
-            print self.pos_list, self.index
+            print (self.pos_list, self.index)
         self.rect.topleft = self.pos_list[self.index]
 
         self.check_input(keys)
@@ -420,7 +416,7 @@ class SelectArrow(object):
         self.enemy_pos_list = [pos for pos in enemy_list if pos != enemy_pos]
 
 
-class PlayerHealth(object):
+class PlayerHealth:
     """
     Basic health meter for player.
     """

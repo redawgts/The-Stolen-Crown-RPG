@@ -1,10 +1,12 @@
 import copy
+
 import pygame as pg
-from .. import tools, setup
+
 from .. import constants as c
+from .. import setup, tools
 
 
-class CreditEntry(object):
+class CreditEntry:
     """
     The text for each credit for the game.
     """
@@ -164,6 +166,3 @@ class Credits(tools._State):
         """
         surface.blit(self.background, (0, 0))
         self.credit.draw(surface)
-        
-    
-

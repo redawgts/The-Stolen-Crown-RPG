@@ -2,9 +2,11 @@
 Attack equipment for battles.
 """
 import copy
+
 import pygame as pg
-from .. import tools, setup
+
 from .. import constants as c
+from .. import setup, tools
 
 
 class Sword(object):

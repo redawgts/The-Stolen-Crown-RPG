@@ -4,15 +4,11 @@
 This class controls all the GUI for the player
 menu screen.
 """
-import sys
-import pygame as pg
-from . import setup, observer
-from . import constants as c
-from . import tools
 
-#Python 2/3 compatibility.
-if sys.version_info[0] == 2:
-    range = xrange
+import pygame as pg
+
+from . import constants as c
+from . import observer, setup, tools
 
 
 class SmallArrow(pg.sprite.Sprite):
@@ -237,7 +233,7 @@ class InfoBox(pg.sprite.Sprite):
                                          stat[1:],
                                          self.player_stats[stat])
             elif stat == 'Attack Power':
-				text = "{}: {}".format(stat, self.get_attack_power()) 
+                text = "{}: {}".format(stat, self.get_attack_power()) 
             elif stat == 'Defense Power':
                 text = "{}: {}".format(stat, self.get_defense_power())
             elif stat == 'gold':
@@ -413,7 +409,7 @@ class SelectionBox(pg.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
 
-class MenuGui(object):
+class MenuGui:
     def __init__(self, level, inventory, stats):
         self.level = level
         self.game_data = self.level.game_data

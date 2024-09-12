@@ -2,18 +2,13 @@
 This class controls the textbox GUI for any shop state.
 A Gui object is created and updated by the shop state.
 """
-import sys
 import pickle
+
 import pygame as pg
-from . import setup, observer
-from . components import textbox
+
 from . import constants as c
-
-
-#Python 2/3 compatibility.
-if sys.version_info[0] == 2:
-    import cPickle
-    pickle = cPickle 
+from . import observer, setup
+from .components import textbox
 
 
 class Gui(object):

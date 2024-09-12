@@ -1,13 +1,14 @@
 from __future__ import division
-from itertools import izip
-import math, random, copy, sys
-import pygame as pg
-from .. import setup, observer
-from .. import constants as c
 
-#Python 2/3 compatibility.
-if sys.version_info[0] == 2:
-    range = xrange
+import copy
+import math
+import random
+import sys
+
+import pygame as pg
+
+from .. import constants as c
+from .. import observer, setup
 
 
 class Person(pg.sprite.Sprite):
@@ -64,7 +65,7 @@ class Person(pg.sprite.Sprite):
                 image_list.append(
                     self.get_image(column*32, row*32, 32, 32, sheet))
 
-        for key, image in izip(image_keys, image_list):
+        for key, image in zip(image_keys, image_list):
             image_dict[key] = image
 
         return image_dict
@@ -653,7 +654,4 @@ class Chest(Person):
         state_function = self.state_dict[self.state]
         state_function()
         self.location = self.get_tile_location()
-
-
-
 

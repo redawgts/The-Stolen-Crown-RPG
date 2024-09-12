@@ -7,9 +7,11 @@ all the textboxes.
 """
 
 import copy
+
 import pygame as pg
-from .. import tools, setup, shopgui
+
 from .. import constants as c
+from .. import setup, shopgui, tools
 
 
 class Shop(tools._State):

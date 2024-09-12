@@ -1,8 +1,10 @@
 __author__ = 'justinarmstrong'
 import copy
+
 import pygame as pg
-from .. import setup, observer, tools
+
 from .. import constants as c
+from .. import observer, setup, tools
 
 
 class NextArrow(pg.sprite.Sprite):
@@ -14,7 +16,7 @@ class NextArrow(pg.sprite.Sprite):
                                         bottom=135)
 
 
-class DialogueBox(object):
+class DialogueBox:
     """Text box used for dialogue"""
     def __init__(self, dialogue, index=0, image_key='dialoguebox', item=None):
         self.item = item
@@ -77,7 +79,7 @@ class DialogueBox(object):
             self.image.blit(self.arrow.image, self.arrow.rect)
 
 
-class TextHandler(object):
+class TextHandler:
     """Handles interaction between sprites to create dialogue boxes"""
 
     def __init__(self, level):

@@ -1,15 +1,12 @@
-import pickle, sys, os
-import pygame as pg
-from .. import setup, tools, tilerender
-from .. import observer
-from .. import constants as c
-import death
- 
+import os
+import pickle
+import sys
 
-#Python 2/3 compatibility.
-if sys.version_info[0] == 2:
-    import cPickle
-    pickle = cPickle 
+import pygame as pg
+
+from .. import constants as c
+from .. import observer, setup, tilerender, tools
+from . import death
 
 
 class Menu(tools._State):
@@ -266,7 +263,4 @@ class LoadGame(Instructions):
 
         if not keys[pg.K_DOWN] and not keys[pg.K_UP]:
             self.allow_input = True
-
-        
-
 

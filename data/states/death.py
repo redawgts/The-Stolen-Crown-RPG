@@ -1,14 +1,13 @@
-import copy, pickle, sys, os
-import pygame as pg
-from .. import setup, tools
-from .. import observer
-from ..components import person
-from .. import constants as c
+import copy
+import os
+import pickle
+import sys
 
-#Python 2/3 compatibility.
-if sys.version_info[0] == 2:
-    import cPickle
-    pickle = cPickle
+import pygame as pg
+
+from .. import constants as c
+from .. import observer, setup, tools
+from ..components import person
 
 
 class Arrow(pg.sprite.Sprite):
@@ -191,8 +190,3 @@ class DeathScene(tools._State):
         surface.blit(self.arrow.image, self.arrow.rect)
         surface.blit(self.transition_surface, (0, 0))
 
-
-
-
-
-        

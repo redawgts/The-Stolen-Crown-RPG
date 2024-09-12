@@ -1,8 +1,11 @@
 import random
+
 import pygame as pg
+
 from . import constants as c
 
-class CollisionHandler(object):
+
+class CollisionHandler:
     """Handles collisions between the user, blockers and computer
     characters"""
     def __init__(self, player, blockers, sprites, portals, level):

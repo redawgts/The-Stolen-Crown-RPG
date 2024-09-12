@@ -1,8 +1,7 @@
-from data.states import shop, levels, battle, main_menu, death
-from data.states import credits
-from . import setup, tools
-from . import constants as c
+from data.states import battle, credits, death, levels, main_menu, shop
 
+from . import constants as c
+from . import setup, tools
 
 TOWN = 'town'
 MAIN_MENU = 'main menu'

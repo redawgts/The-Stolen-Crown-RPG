@@ -4,11 +4,12 @@ his inventory, equip items and check stats.
 Most of the logic is in menugui.MenuGUI()
 """
 import pygame as pg
-from .. import tools, setup, menugui
+
 from .. import constants as c
+from .. import menugui, setup, tools
 
 
-class Player_Menu(object):
+class Player_Menu:
     def __init__(self, game_data, level):
         inventory = game_data['player inventory']
         stats = game_data['player stats']
