@@ -1,6 +1,7 @@
 """
 Sprites for attacks.
 """
+
 import pygame as pg
 
 from .. import setup, tools
@@ -10,9 +11,10 @@ class Fire(pg.sprite.Sprite):
     """
     Fire animation for attacks.
     """
+
     def __init__(self, x, y):
         super(Fire, self).__init__()
-        self.spritesheet = setup.GFX['explosion']
+        self.spritesheet = setup.GFX["explosion"]
         self.get_image = tools.get_image
         self.image_list = self.make_image_list()
         self.index = 0
@@ -31,8 +33,7 @@ class Fire(pg.sprite.Sprite):
             for column in range(8):
                 posx = column * 128
                 posy = row * 128
-                new_image = self.get_image(posx, posy, 128, 128,
-                                           self.spritesheet)
+                new_image = self.get_image(posx, posy, 128, 128, self.spritesheet)
                 image_list.append(new_image)
 
         return image_list

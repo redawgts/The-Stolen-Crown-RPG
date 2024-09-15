@@ -1,5 +1,3 @@
-import random
-
 import pygame as pg
 
 from . import constants as c
@@ -8,6 +6,7 @@ from . import constants as c
 class CollisionHandler:
     """Handles collisions between the user, blockers and computer
     characters"""
+
     def __init__(self, player, blockers, sprites, portals, level):
         self.player = player
         self.static_blockers = blockers
@@ -34,8 +33,7 @@ class CollisionHandler:
         """
         Check for collisions between game objects.
         """
-        self.blockers = self.make_blocker_list(self.static_blockers,
-                                               self.sprites)
+        self.blockers = self.make_blocker_list(self.static_blockers, self.sprites)
         self.player.rect.move_ip(self.player.x_vel, self.player.y_vel)
         self.check_for_blockers()
 
@@ -44,13 +42,13 @@ class CollisionHandler:
         self.check_for_blockers()
 
         if self.player.rect.x % 32 == 0 and self.player.rect.y % 32 == 0:
-            if not self.player.state == 'resting':
+            if not self.player.state == "resting":
                 self.check_for_portal()
                 self.check_for_battle()
             self.player.begin_resting()
 
         for sprite in self.sprites:
-            if sprite.state == 'automoving':
+            if sprite.state == "automoving":
                 if sprite.rect.x % 32 == 0 and sprite.rect.y % 32 == 0:
                     sprite.begin_auto_resting()
 
@@ -93,7 +91,6 @@ class CollisionHandler:
                 if sprite.rect.colliderect(blocker):
                     sprite_collided_list.append(sprite)
 
-
         for sprite in sprite_collided_list:
             self.reset_after_collision(sprite)
             sprite.begin_auto_resting()
@@ -101,7 +98,7 @@ class CollisionHandler:
     def reset_after_collision(self, sprite):
         """Put player back to original position"""
         if sprite.x_vel != 0:
-                sprite.rect.x -= sprite.x_vel
+            sprite.rect.x -= sprite.x_vel
         else:
             sprite.rect.y -= sprite.y_vel
 
@@ -110,9 +107,6 @@ class CollisionHandler:
         Switch scene to battle 1/5 times if battles are allowed.
         """
         if self.level.allow_battles:
-            self.level.game_data['battle counter'] -= 5
-            if self.level.game_data['battle counter'] <= 0:
+            self.level.game_data["battle counter"] -= 5
+            if self.level.game_data["battle counter"] <= 0:
                 self.level.switch_to_battle = True
-
-
-

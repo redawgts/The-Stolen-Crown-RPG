@@ -3,6 +3,7 @@ This is the state where the player can look at
 his inventory, equip items and check stats.
 Most of the logic is in menugui.MenuGUI()
 """
+
 import pygame as pg
 
 from .. import constants as c
@@ -11,8 +12,8 @@ from .. import menugui, setup, tools
 
 class Player_Menu:
     def __init__(self, game_data, level):
-        inventory = game_data['player inventory']
-        stats = game_data['player stats']
+        inventory = game_data["player inventory"]
+        stats = game_data["player stats"]
         self.get_image = tools.get_image
         self.allow_input = False
         self.background = self.make_background()
@@ -28,7 +29,7 @@ class Player_Menu:
         background.image = surface
         background.rect = background.image.get_rect()
 
-        player = self.make_sprite('player', 96, 32)
+        player = self.make_sprite("player", 96, 32)
 
         background.image.blit(player.image, player.rect)
 
@@ -60,4 +61,3 @@ class Player_Menu:
     def draw(self, surface):
         surface.blit(self.background.image, self.background.rect)
         self.gui.draw(surface)
-

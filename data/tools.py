@@ -1,15 +1,19 @@
-__author__ = 'justinarmstrong'
+__author__ = "justinarmstrong"
 
-import os, random
+import os
+
 import pygame as pg
+
 from . import constants as c
 
-class Control(object):
+
+class Control:
     """
     Control class for entire project.  Contains the game loop, and contains
     the event_loop which passes events to States as needed.  Logic for flipping
     states is also found here.
     """
+
     def __init__(self, caption):
         self.screen = pg.display.get_surface()
         self.done = False
@@ -91,8 +95,9 @@ class Control(object):
                 pg.display.set_caption(with_fps)
 
 
-class _State(object):
+class _State:
     """Base class for all game states"""
+
     def __init__(self):
         self.start_time = 0.0
         self.current_time = 0.0
@@ -120,7 +125,7 @@ class _State(object):
         pass
 
 
-def load_all_gfx(directory, colorkey=(255,0,255), accept=('.png', 'jpg', 'bmp')):
+def load_all_gfx(directory, colorkey=(255, 0, 255), accept=(".png", "jpg", "bmp")):
     graphics = {}
     for pic in os.listdir(directory):
         name, ext = os.path.splitext(pic)
@@ -135,7 +140,7 @@ def load_all_gfx(directory, colorkey=(255,0,255), accept=('.png', 'jpg', 'bmp'))
     return graphics
 
 
-def load_all_music(directory, accept=('.wav', '.mp3', '.ogg', '.mdi')):
+def load_all_music(directory, accept=(".wav", ".mp3", ".ogg", ".mdi")):
     songs = {}
     for song in os.listdir(directory):
         name, ext = os.path.splitext(song)
@@ -144,15 +149,15 @@ def load_all_music(directory, accept=('.wav', '.mp3', '.ogg', '.mdi')):
     return songs
 
 
-def load_all_fonts(directory, accept=('.ttf')):
+def load_all_fonts(directory, accept=(".ttf")):
     return load_all_music(directory, accept)
 
 
-def load_all_tmx(directory, accept=('.tmx')):
+def load_all_tmx(directory, accept=(".tmx")):
     return load_all_music(directory, accept)
 
 
-def load_all_sfx(directory, accept=('.wav','.mp3','.ogg','.mdi')):
+def load_all_sfx(directory, accept=(".wav", ".mp3", ".ogg", ".mdi")):
     effects = {}
     for fx in os.listdir(directory):
         name, ext = os.path.splitext(fx)
@@ -171,16 +176,17 @@ def get_image(x, y, width, height, sprite_sheet):
 
     return image
 
+
 def get_tile(x, y, tileset, width=16, height=16, scale=1):
     """Gets the surface and rect for a tile"""
     surface = get_image(x, y, width, height, tileset)
-    surface = pg.transform.scale(surface, (int(width*scale), int(height*scale)))
+    surface = pg.transform.scale(surface, (int(width * scale), int(height * scale)))
     rect = surface.get_rect()
 
-    tile_dict = {'surface': surface,
-                 'rect': rect}
+    tile_dict = {"surface": surface, "rect": rect}
 
     return tile_dict
+
 
 def notify_observers(self, event):
     """
@@ -189,68 +195,54 @@ def notify_observers(self, event):
     for each_observer in self.observers:
         each_observer.on_notify(event)
 
+
 def create_game_data_dict():
     """Create a dictionary of persistant values the player
     carries between states"""
 
-    player_items = {'GOLD': dict([('quantity',100),
-                                  ('value',0)]),
-                    'Healing Potion': dict([('quantity',2),
-                                            ('value',15)]),
-                    'Ether Potion': dict([('quantity',1),
-                                          ('value', 15)]),
-                    'Rapier': dict([('quantity', 1),
-                                    ('value', 50),
-                                    ('power', 9)]),
-                    'equipped weapon': 'Rapier',
-                    'equipped armor': []}
+    player_items = {
+        "GOLD": {"quantity": 100, "value": 0},
+        "Healing Potion": {"quantity": 2, "value": 15},
+        "Ether Potion": {"quantity": 1, "value": 15},
+        "Rapier": {"quantity": 1, "value": 50, "power": 9},
+        "equipped weapon": "Rapier",
+        "equipped armor": [],
+    }
 
-    player_health = {'current': 70,
-                     'maximum': 70}
+    player_stats = {
+        "health": {"current": 70, "maximum": 70},
+        "Level": 1,
+        "experience to next level": 30,
+        "magic": {"current": 70, "maximum": 70},
+        "attack points": 10,
+        "Defense Points": 10,
+    }
 
-    player_magic = {'current': 70,
-                    'maximum': 70}
-
-    player_stats = {'health': player_health,
-                    'Level': 1,
-                    'experience to next level': 30,
-                    'magic': player_magic,
-                    'attack points': 10,
-                    'Defense Points': 10}
-
-
-    data_dict = {'last location': None,
-                 'last state': None,
-                 'last direction': 'down',
-                 'king item': 'GOLD',
-                 'old man item': {'ELIXIR': dict([('value',1000),
-                                                  ('quantity',1)])},
-                 'player inventory': player_items,
-                 'player stats': player_stats,
-                 'battle counter': 50,
-                 'treasure1': True,
-                 'treasure2': True,
-                 'treasure3': True,
-                 'treasure4': True,
-                 'treasure5': True,
-                 'start of game': True,
-                 'talked to king': False,
-                 'brother quest complete': False,
-                 'talked to sick brother': False,
-                 'has brother elixir': False,
-                 'elixir received': False,
-                 'old man gift': '',
-                 'battle type': '',
-                 'crown quest': False,
-                 'delivered crown': False,
-                 'brother item': 'ELIXIR'
+    data_dict = {
+        "last location": None,
+        "last state": None,
+        "last direction": "down",
+        "king item": "GOLD",
+        "old man item": {"ELIXIR": {"value": 1000, "quantity": 1}},
+        "player inventory": player_items,
+        "player stats": player_stats,
+        "battle counter": 50,
+        "treasure1": True,
+        "treasure2": True,
+        "treasure3": True,
+        "treasure4": True,
+        "treasure5": True,
+        "start of game": True,
+        "talked to king": False,
+        "brother quest complete": False,
+        "talked to sick brother": False,
+        "has brother elixir": False,
+        "elixir received": False,
+        "old man gift": "",
+        "battle type": "",
+        "crown quest": False,
+        "delivered crown": False,
+        "brother item": "ELIXIR",
     }
 
     return data_dict
-
-
-
-
-
-
-

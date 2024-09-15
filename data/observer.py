@@ -1,6 +1,7 @@
 """
 Module for all game observers.
 """
+
 import pygame as pg
 
 from . import constants as c
@@ -12,6 +13,7 @@ class Battle:
     """
     Observes events of battle and passes info to components.
     """
+
     def __init__(self, level):
         self.level = level
         self.player = level.player
@@ -27,9 +29,11 @@ class Battle:
         Make a dictionary of events the Observer can
         receive.
         """
-        event_dict = {c.ENEMY_DEAD: self.enemy_dead,
-                      c.ENEMY_DAMAGED: self.enemy_damaged,
-                      c.PLAYER_DAMAGED: self.player_damaged}
+        event_dict = {
+            c.ENEMY_DEAD: self.enemy_dead,
+            c.ENEMY_DAMAGED: self.enemy_damaged,
+            c.PLAYER_DAMAGED: self.player_damaged,
+        }
 
         return event_dict
 
@@ -60,6 +64,7 @@ class SoundEffects:
     """
     Observer for sound effects.
     """
+
     def on_notify(self, event):
         """
         Observer is notified of SFX event.
@@ -67,10 +72,12 @@ class SoundEffects:
         if event in setup.SFX:
             setup.SFX[event].play()
 
+
 class MusicChange:
     """
     Observer for special music events.
     """
+
     def __init__(self):
         self.event_dict = self.make_event_dict()
 
@@ -78,7 +85,7 @@ class MusicChange:
         """
         Make a dictionary with events keyed to new music.
         """
-        new_dict = {c.BATTLE_WON: 'enchanted_festival'}
+        new_dict = {c.BATTLE_WON: "enchanted_festival"}
         return new_dict
 
     def on_notify(self, event):
@@ -91,5 +98,3 @@ class MusicChange:
                 music_file = setup.MUSIC[new_music]
                 pg.mixer.music.load(music_file)
                 pg.mixer.music.play(-1)
-
-

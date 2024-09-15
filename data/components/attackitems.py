@@ -1,6 +1,7 @@
 """
 Attack equipment for battles.
 """
+
 import copy
 
 import pygame as pg
@@ -9,13 +10,14 @@ from .. import constants as c
 from .. import setup, tools
 
 
-class Sword(object):
+class Sword:
     """
     Sword that appears during regular attacks.
     """
+
     def __init__(self, player):
         self.player = player
-        self.sprite_sheet = setup.GFX['shopsigns']
+        self.sprite_sheet = setup.GFX["shopsigns"]
         self.image_list = self.make_image_list()
         self.index = 0
         self.timer = 0.0
@@ -24,8 +26,10 @@ class Sword(object):
         """
         Make the list of two images for animation.
         """
-        image_list = [tools.get_image(48, 0, 16, 16, self.sprite_sheet),
-                      tools.get_image(0, 0, 22, 16, setup.GFX['sword2'])]
+        image_list = [
+            tools.get_image(48, 0, 16, 16, self.sprite_sheet),
+            tools.get_image(0, 0, 22, 16, setup.GFX["sword2"]),
+        ]
         return image_list
 
     @property
@@ -52,7 +56,7 @@ class Sword(object):
         """
         Draw sprite to surface.
         """
-        if self.player.state == 'attack':
+        if self.player.state == "attack":
             surface.blit(self.image, self.rect)
 
 
@@ -60,14 +64,14 @@ class HealthPoints(pg.sprite.Sprite):
     """
     A sprite that shows how much damage an attack inflicted.
     """
+
     def __init__(self, points, topleft_pos, damage=True, ether=False):
         super(HealthPoints, self).__init__()
         self.ether = ether
         self.damage = damage
         self.font = pg.font.Font(setup.FONTS[c.MAIN_FONT], 27)
         self.text_image = self.make_surface(points)
-        self.rect = self.text_image.get_rect(x=topleft_pos[0]+20,
-                                             bottom=topleft_pos[1]+10)
+        self.rect = self.text_image.get_rect(x=topleft_pos[0] + 20, bottom=topleft_pos[1] + 10)
         self.image = pg.Surface(self.rect.size).convert()
         self.image.set_colorkey(c.BLACK)
         self.alpha = 255
@@ -87,7 +91,7 @@ class HealthPoints(pg.sprite.Sprite):
                 surface = self.font.render(text, True, c.RED)
                 return surface
             else:
-                return self.font.render('Miss', True, c.WHITE).convert_alpha()
+                return self.font.render("Miss", True, c.WHITE).convert_alpha()
         else:
             text = "+{}".format(str(points))
             if self.ether:
@@ -118,12 +122,3 @@ class HealthPoints(pg.sprite.Sprite):
             self.alpha -= 15
             if self.alpha <= 0:
                 self.kill()
-
-
-
-
-
-
-
-
-

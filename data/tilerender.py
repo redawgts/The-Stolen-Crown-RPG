@@ -1,6 +1,7 @@
 """
 This is a test of using the pytmx library with Tiled.
 """
+
 import pygame as pg
 import pytmx
 
@@ -9,6 +10,7 @@ class Renderer:
     """
     This object renders tile maps from Tiled
     """
+
     def __init__(self, filename):
         tm = pytmx.load_pygame(filename, pixelalpha=True)
         self.size = tm.width * tm.tilewidth, tm.height * tm.tileheight

@@ -1,6 +1,7 @@
 """
 GUI components for battle states.
 """
+
 import pygame as pg
 
 from . import constants as c
@@ -12,6 +13,7 @@ class InfoBox:
     Info box that describes attack damage and other battle
     related information.
     """
+
     def __init__(self, game_data, experience, gold):
         self.game_data = game_data
         self.enemy_damage = 0
@@ -32,24 +34,26 @@ class InfoBox:
         """
         Make dictionary of states Battle info can be in.
         """
-        state_dict   = {c.SELECT_ACTION: 'Select an action.',
-                        c.SELECT_MAGIC: 'Select a magic spell.',
-                        c.SELECT_ITEM: 'Select an item.',
-                        c.SELECT_ENEMY: 'Select an enemy.',
-                        c.ENEMY_ATTACK: 'Enemy attacks player!',
-                        c.PLAYER_ATTACK: 'Player attacks enemy! ',
-                        c.RUN_AWAY: 'RUN AWAY!!!',
-                        c.ENEMY_DAMAGED: self.enemy_damaged(),
-                        c.ENEMY_DEAD: 'Enemy killed.',
-                        c.PLAYER_DAMAGED: self.player_hit(),
-                        c.DRINK_HEALING_POTION: 'Player healed.',
-                        c.DRINK_ETHER_POTION: 'Magic Points Increased.',
-                        c.FIRE_SPELL: 'FIRE BLAST!',
-                        c.BATTLE_WON: 'Battle won!',
-                        c.SHOW_EXPERIENCE: self.show_experience(),
-                        c.LEVEL_UP: self.level_up(),
-                        c.TWO_ACTIONS: 'Two actions per turn mode is now available.',
-                        c.SHOW_GOLD: self.show_gold()}
+        state_dict = {
+            c.SELECT_ACTION: "Select an action.",
+            c.SELECT_MAGIC: "Select a magic spell.",
+            c.SELECT_ITEM: "Select an item.",
+            c.SELECT_ENEMY: "Select an enemy.",
+            c.ENEMY_ATTACK: "Enemy attacks player!",
+            c.PLAYER_ATTACK: "Player attacks enemy! ",
+            c.RUN_AWAY: "RUN AWAY!!!",
+            c.ENEMY_DAMAGED: self.enemy_damaged(),
+            c.ENEMY_DEAD: "Enemy killed.",
+            c.PLAYER_DAMAGED: self.player_hit(),
+            c.DRINK_HEALING_POTION: "Player healed.",
+            c.DRINK_ETHER_POTION: "Magic Points Increased.",
+            c.FIRE_SPELL: "FIRE BLAST!",
+            c.BATTLE_WON: "Battle won!",
+            c.SHOW_EXPERIENCE: self.show_experience(),
+            c.LEVEL_UP: self.level_up(),
+            c.TWO_ACTIONS: "Two actions per turn mode is now available.",
+            c.SHOW_GOLD: self.show_gold(),
+        }
 
         return state_dict
 
@@ -63,17 +67,17 @@ class InfoBox:
         """
         Make the text for when the player selects items.
         """
-        inventory = self.game_data['player inventory']
-        allowed_item_list = ['Healing Potion', 'Ether Potion']
-        title = 'SELECT ITEM'
+        inventory = self.game_data["player inventory"]
+        allowed_item_list = ["Healing Potion", "Ether Potion"]
+        title = "SELECT ITEM"
         item_text_list = [title]
 
         for item in allowed_item_list:
             if item in inventory:
-                text = item + ": " + str(inventory[item]['quantity'])
+                text = item + ": " + str(inventory[item]["quantity"])
                 item_text_list.append(text)
 
-        item_text_list.append('BACK')
+        item_text_list.append("BACK")
 
         return item_text_list
 
@@ -81,13 +85,13 @@ class InfoBox:
         """
         Make the text for when the player selects magic.
         """
-        inventory = self.game_data['player inventory']
-        allowed_item_list = ['Fire Blast', 'Cure']
-        title = 'SELECT MAGIC SPELL'
+        inventory = self.game_data["player inventory"]
+        allowed_item_list = ["Fire Blast", "Cure"]
+        title = "SELECT MAGIC SPELL"
         magic_text_list = [title]
         spell_list = [item for item in inventory if item in allowed_item_list]
         magic_text_list.extend(spell_list)
-        magic_text_list.append('BACK')
+        magic_text_list.append("BACK")
 
         return magic_text_list
 
@@ -120,7 +124,7 @@ class InfoBox:
         """
         Make image out of box and message.
         """
-        image = setup.GFX['shopbox']
+        image = setup.GFX["shopbox"]
         rect = image.get_rect(bottom=608)
         surface = pg.Surface(rect.size)
         surface.set_colorkey(c.BLACK)
@@ -179,7 +183,7 @@ class InfoBox:
         """
         Return message indicating a level up for player.
         """
-        return "You leveled up to Level {}!".format(self.game_data['player stats']['Level'])
+        return "You leveled up to Level {}!".format(self.game_data["player stats"]["Level"])
 
     def reset_level_up_message(self):
         self.state_dict[c.LEVEL_UP] = self.level_up()
@@ -189,18 +193,18 @@ class SelectBox:
     """
     Box to select whether to attack, use item, use magic or run away.
     """
+
     def __init__(self):
         self.font = pg.font.Font(setup.FONTS[c.MAIN_FONT], 22)
         self.slots = self.make_slots()
         self.image = self.make_image()
-        self.rect = self.image.get_rect(bottom=608,
-                                        right=800)
+        self.rect = self.image.get_rect(bottom=608, right=800)
 
     def make_image(self):
         """
         Make the box image for
         """
-        image = setup.GFX['goldbox']
+        image = setup.GFX["goldbox"]
         rect = image.get_rect(bottom=608)
         surface = pg.Surface(rect.size)
         surface.set_colorkey(c.BLACK)
@@ -208,8 +212,7 @@ class SelectBox:
 
         for text in self.slots:
             text_surface = self.font.render(text, True, c.NEAR_BLACK)
-            text_rect = text_surface.get_rect(x=self.slots[text]['x'],
-                                              y=self.slots[text]['y'])
+            text_rect = text_surface.get_rect(x=self.slots[text]["x"], y=self.slots[text]["y"])
             surface.blit(text_surface, text_rect)
 
         return surface
@@ -219,22 +222,22 @@ class SelectBox:
         Make the slots that hold the text selections, and locations.
         """
         slot_dict = {}
-        selections = ['Attack', 'Items', 'Magic', 'Run']
+        selections = ["Attack", "Items", "Magic", "Run"]
 
         for i, text in enumerate(selections):
-            slot_dict[text] = {'x': 150,
-                               'y': (i*34)+10}
+            slot_dict[text] = {"x": 150, "y": (i * 34) + 10}
 
         return slot_dict
 
 
 class SelectArrow:
     """Small arrow for menu"""
+
     def __init__(self, enemy_pos_list, info_box):
         self.info_box = info_box
-        self.image = setup.GFX['smallarrow']
+        self.image = setup.GFX["smallarrow"]
         self.rect = self.image.get_rect()
-        self.state = 'select action'
+        self.state = "select action"
         self.state_dict = self.make_state_dict()
         self.pos_list = self.make_select_action_pos_list()
         self.index = 0
@@ -247,16 +250,18 @@ class SelectArrow:
         """
         Notify all observers of events.
         """
-        for observer in self.observers:
-            observer.on_notify(event)
+        for _observer in self.observers:
+            _observer.on_notify(event)
 
     def make_state_dict(self):
         """Make state dictionary"""
-        state_dict = {'select action': self.select_action,
-                      'select enemy': self.select_enemy,
-                      'select item': self.select_item,
-                      'select magic': self.select_magic,
-                      'invisible': self.become_invisible_surface}
+        state_dict = {
+            "select action": self.select_action,
+            "select enemy": self.select_enemy,
+            "select item": self.select_item,
+            "select magic": self.select_magic,
+            "invisible": self.become_invisible_surface,
+        }
 
         return state_dict
 
@@ -266,7 +271,7 @@ class SelectArrow:
         """
         self.pos_list = self.make_select_action_pos_list()
         if self.index > (len(self.pos_list) - 1):
-            print (self.pos_list, self.index)
+            print(self.pos_list, self.index)
         self.rect.topleft = self.pos_list[self.index]
 
         self.check_input(keys)
@@ -308,9 +313,12 @@ class SelectArrow:
                 self.index -= 1
                 self.allow_input = False
 
-
-        if keys[pg.K_DOWN] == False and keys[pg.K_UP] == False \
-                and keys[pg.K_RIGHT] == False and keys[pg.K_LEFT] == False:
+        if (
+            keys[pg.K_DOWN] is False
+            and keys[pg.K_UP] is False
+            and keys[pg.K_RIGHT] is False
+            and keys[pg.K_LEFT] is False
+        ):
             self.allow_input = True
 
     def select_item(self, keys):
@@ -367,7 +375,6 @@ class SelectArrow:
 
         return pos_list
 
-
     def become_invisible_surface(self, *args):
         """
         Make image attribute an invisible surface.
@@ -399,7 +406,7 @@ class SelectArrow:
         """
         Update arrow position.
         """
-        self.image = setup.GFX['smallarrow']
+        self.image = setup.GFX["smallarrow"]
         state_function = self.state_dict[self.state]
         state_function(keys)
 
@@ -420,9 +427,10 @@ class PlayerHealth:
     """
     Basic health meter for player.
     """
+
     def __init__(self, select_box_rect, game_data):
-        self.health_stats = game_data['player stats']['health']
-        self.magic_stats = game_data['player stats']['magic']
+        self.health_stats = game_data["player stats"]["health"]
+        self.magic_stats = game_data["player stats"]["magic"]
         self.title_font = pg.font.Font(setup.FONTS[c.MAIN_FONT], 22)
         self.posx = select_box_rect.centerx
         self.posy = select_box_rect.y - 5
@@ -432,31 +440,31 @@ class PlayerHealth:
         """
         Make the image surface for the player
         """
-        current_health = str(self.health_stats['current'])
-        max_health = str(self.health_stats['maximum'])
+        current_health = str(self.health_stats["current"])
+        max_health = str(self.health_stats["maximum"])
         if len(current_health) == 2:
-            buffer = '  '
+            buffer = "  "
         elif len(current_health) == 1:
-            buffer = '    '
+            buffer = "    "
         else:
-            buffer = ''
+            buffer = ""
         health_string = "Health: {}{}/{}".format(buffer, current_health, max_health)
-        health_surface =  self.title_font.render(health_string, True, c.NEAR_BLACK)
+        health_surface = self.title_font.render(health_string, True, c.NEAR_BLACK)
         health_rect = health_surface.get_rect(x=20, y=9)
 
-        current_magic = str(self.magic_stats['current'])
+        current_magic = str(self.magic_stats["current"])
         if len(current_magic) == 2:
-            buffer = '  '
+            buffer = "  "
         elif len(current_magic) == 1:
-            buffer = '    '
+            buffer = "    "
         else:
-            buffer = ''
-        max_magic = str(self.magic_stats['maximum'])
+            buffer = ""
+        max_magic = str(self.magic_stats["maximum"])
         magic_string = "Magic:  {}{}/{}".format(buffer, current_magic, max_magic)
         magic_surface = self.title_font.render(magic_string, True, c.NEAR_BLACK)
         magic_rect = magic_surface.get_rect(x=20, top=health_rect.bottom)
 
-        box_surface = setup.GFX['battlestatbox']
+        box_surface = setup.GFX["battlestatbox"]
         box_rect = box_surface.get_rect()
 
         parent_surface = pg.Surface(box_rect.size)
